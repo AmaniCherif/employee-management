@@ -2,6 +2,7 @@ package org.acme.entity;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -11,18 +12,20 @@ import javax.persistence.*;
 public class Department implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
+	private Long id;
 	
 	private String name;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	Entreprise entreprises;
 
-	public int getId() {
+	@OneToMany(cascade = CascadeType.ALL)
+	private Set<Employe> employees;
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

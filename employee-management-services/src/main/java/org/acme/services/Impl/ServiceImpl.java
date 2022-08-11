@@ -1,14 +1,17 @@
 package org.acme.services.Impl;
 
-import org.acme.entity.*;
+import org.acme.entity.Contrat;
+import org.acme.entity.Department;
+import org.acme.entity.Employe;
+import org.acme.entity.Entreprise;
 import org.acme.repository.*;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import java.util.List;
-
 import org.acme.services.Iservice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import java.util.List;
 
 @ApplicationScoped
 public class ServiceImpl implements Iservice {
@@ -26,6 +29,7 @@ public class ServiceImpl implements Iservice {
 
 
     private static final Logger logger = LoggerFactory.getLogger(ServiceImpl.class);
+
     @Override
     public Employe ajouterEmploye(Employe employe) {
         return employeRepository.save(employe);
@@ -44,15 +48,18 @@ public class ServiceImpl implements Iservice {
     }
 
     @Override
+    public Employe getEmployeById(Long id) {
+        return employeRepository.findById(id).get();
+    }
+
+    @Override
     public void deleteEmploye(Long id) {
         employeRepository.deleteById(id);
-
     }
 
     @Override
     public Employe updateEmploye(Employe employe) {
-        Employe employeAdded = employeRepository.save(employe);
-        return employeAdded;
+        return employeRepository.save(employe);
     }
 
     @Override
@@ -78,8 +85,8 @@ public class ServiceImpl implements Iservice {
 
     @Override
     public Entreprise getEntrepriseById(Long id) {
+        System.out.println("id :: " + id);
         return entrepriseRepository.findById(id).get();
-
     }
 
     @Override
@@ -90,8 +97,7 @@ public class ServiceImpl implements Iservice {
 
     @Override
     public void deleteContratById(Long id) {
-        Contrat contrat = contratRepository.findById(id).get();
-        contratRepository.delete(contrat);
+        contratRepository.deleteById(id);
     }
 
     @Override
@@ -109,8 +115,31 @@ public class ServiceImpl implements Iservice {
 
     @Override
     public Contrat updateContrat(Contrat contrat) {
-        return null;
+        Contrat contratAdded = contratRepository.save(contrat);
+        return contratAdded;
     }
 
+    @Override
+    public void affecterDepartementAEntreprise(Long depId, Long entrepriseId) {
+        Entreprise entrepriseManagedEntity = entrepriseRepository.findById(entrepriseId).get();
+        Department depManagedEntity = departmentRepository.findById(depId).get();
 
+        depManagedEntity.setEntreprises(entrepriseManagedEntity);
+        departmentRepository.save(depManagedEntity);
+    }
+
+    @Override
+    public List<Entreprise> getAllEntreprises() {
+        return (List<Entreprise>) entrepriseRepository.findAll();
+    }
+
+    @Override
+    public Department updateDepartment(Department department) {
+       return departmentRepository.save(department);
+    }
+
+    @Override
+    public Entreprise updateEntreprise(Entreprise entreprise) {
+        return entrepriseRepository.save(entreprise);
+    }
 }

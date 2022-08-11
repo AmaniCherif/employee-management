@@ -1,41 +1,50 @@
 package org.acme.services;
 
-import org.acme.entity.*;
+import org.acme.entity.Contrat;
+import org.acme.entity.Department;
+import org.acme.entity.Employe;
+import org.acme.entity.Entreprise;
 
 import java.util.List;
 
 public interface Iservice {
 
-    public Employe ajouterEmploye(Employe employe);
+    Employe ajouterEmploye(Employe employe);
 
-    public List<Employe> getAllEmployes();
+    List<Employe> getAllEmployes();
 
-    public String getEmployePrenomById(Long id);
+    String getEmployePrenomById(Long id);
 
-    public void deleteEmploye(Long id);
+    Employe getEmployeById(Long id);
 
-    public Employe updateEmploye(Employe employe);
+    void deleteEmploye(Long id);
 
-    public List<Department> getAllDepartments();
+    Employe updateEmploye(Employe employe);
 
-    public Department ajouterDepartment(Department department);
+    List<Department> getAllDepartments();
 
-    public Long ajouterEntreprise(Entreprise entreprise);
+    Department ajouterDepartment(Department department);
 
-    public void deleteEntrepriseById(Long id);
+    Long ajouterEntreprise(Entreprise entreprise);
 
-    public Entreprise getEntrepriseById(Long id);
+    void deleteEntrepriseById(Long id);
 
-     public Long ajouterContrat(Contrat contrat);
+    Entreprise getEntrepriseById(Long id);
 
-     public void deleteContratById(Long id);
+    Long ajouterContrat(Contrat contrat);
 
-     public List<Contrat> getAllContrats();
+    void deleteContratById(Long id);
 
-     public void affecterContratAEmploye(Long contratId, Long employeId);
+    List<Contrat> getAllContrats();
 
-    public Contrat updateContrat(Contrat contrat);
+    void affecterContratAEmploye(Long contratId, Long employeId);
 
+    Contrat updateContrat(Contrat contrat);
 
+    void affecterDepartementAEntreprise(Long depId, Long entrepriseId);
 
+    List<Entreprise> getAllEntreprises();
+    Department updateDepartment(Department department);
+
+    Entreprise updateEntreprise(Entreprise entreprise);
 }

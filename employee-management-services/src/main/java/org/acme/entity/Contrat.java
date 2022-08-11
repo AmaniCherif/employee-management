@@ -1,5 +1,6 @@
 package org.acme.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.ToString;
 import org.acme.entity.listener.ContratListener;
 
@@ -26,6 +27,7 @@ public class Contrat implements Serializable {
     private String typeContrat;
     private float telephone;
     private float salaire;
+    @JsonIgnore
     @OneToOne
     private Employe employe;
 
